@@ -4,8 +4,7 @@ def solution(nums):
     for num in list(map(sum, combinations(nums, 3))):
         for n in range(2, num):
             if num % n == 0:
-                num = 0
                 break
-        if num != 0:
+        else:
             count += 1
     return count
