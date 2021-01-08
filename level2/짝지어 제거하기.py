@@ -1,14 +1,8 @@
 def solution(s):
-    s = list(s)
-    pv = 1
-    while pv != 0:
-        pv = 0
-        for idx, n in enumerate(s):
-            if s[idx] == s[idx-1]:
-                pv = 1
-                s.pop(idx)
-                s.pop(idx-1)
-    if len(s) == 0:
-        return 1
-    else:
-        return 0
+    lst = [0]
+    for i in s:
+        if lst[-1] == i:
+            lst.pop()
+        else:
+            lst.append(i)
+    return 0 if lst[-1] != 0 else 1
