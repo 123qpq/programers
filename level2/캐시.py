@@ -1,26 +1,20 @@
 def solution(cacheSize, cities):
     answer = 0
-    cache = {}
-    citiess = []
-    if len(cities) == 0:
-        return 0
+    cache = []
     
     for c in cities:
-        citiess.append(c.lower())
-    
-    for c in citiess:
-        if c in cache:
-            cache[c] += 1
+        c = c.lower()
+        if cacheSize == 0:
+            return len(cities) * 5
+        elif c in cache:
+            cache.remove(c)
+            cache.append(c)
             answer += 1
-        elif len(cache) >= cacheSize and cacheSize != 0:
-            for k, v in cache.items():
-                if v == cache[min(cache)]:
-                    del cache[k]
-                    break
-            cache[c] = 1
+        elif len(cache) >= cacheSize:
+            cache.pop(0)
+            cache.append(c)
             answer += 5
         else:
-            cache[c] = 1
+            cache.append(c)
             answer += 5
-    
     return answer
