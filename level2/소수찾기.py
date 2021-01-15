@@ -12,7 +12,7 @@ def solution(numbers):
             if j[0] == '0' or j[-1] == '0' or j in numlist:
                 continue
             numlist.append(j)
-    print(numlist)
+
     for num in numlist:
         num = int(num)
         if num == 2 or num == 3: answer += 1
