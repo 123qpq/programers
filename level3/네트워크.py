@@ -1,6 +1,6 @@
 def solution(n, computers):
     lst= []
-    for computer in computers:   
+    for computer in sorted(computers, reverse=True):   
         temp = list(filter(lambda x: computer[x] == 1, range(len(computer))))
         
         for i in range(len(lst)):
