@@ -10,7 +10,7 @@ def solution(jobs):
             heapq.heappush(heap, (job[1], job[0]))
         elif len(heap) != 0: # 막혔을 경우 요청1개 처리함
             temp = heapq.heappop(heap)
-            answer += t1 - temp[1] + temp[0]
+            answer += abs(t1 - temp[1]) + temp[0] #현재시간-요청시간+처리시간
             t1 += temp[0] #처리 소요시간을 현재시간에 적용
             heapq.heappush(heap, (job[1], job[0])) #else문으로 빠지며 실행못한 부분 보충
     
