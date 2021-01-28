@@ -7,7 +7,7 @@ def solution(begin, target, words):
     for word in words:
         temp = []
         for j in words:
-            cnt = len([x for x in word if x in j])
+            cnt = len([x for x in range(len(word)) if word[x] == j[x]]) #위치도 같이 비교
             if cnt == len(begin) - 1: #한글자만 다른 경우 모음
                 temp.append(j)
         graph[word] = set(temp) # 그래프 구축
