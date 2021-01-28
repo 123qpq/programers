@@ -13,17 +13,15 @@ def solution(begin, target, words):
         graph[word] = set(temp) # 그래프 구축
     print(graph)
     
-    visited = []
-    stack = [begin]
+    queue = [(begin, [begin])]
+    result = []
     
-    while stack: #깊이탐색
-        n = stack.pop()
-        if n not in visited:
-            visited.append(n)
-            stack += graph[n] - set(visited)
-            print(stack, visited)
-        if target in stack:
-            print(visited)
-            return len(visited)
+    while queue: #너비탐색
+        n, path = queue.pop(0)
+        if n == target:
+            result.append(path)
+        else:
+            for m in graph[n] - set(path):
+                queue.append((m, path + [m]))
 
-    return 0
+    return min([len(x) for x in result]) - 1
