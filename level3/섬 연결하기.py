@@ -1,6 +1,6 @@
 def solution(n, costs):
     
-    table = [[0 if i == j else -1 for i in range(n)] for j in range(n)]
+    table = [[99 for i in range(n)] for j in range(n)]
     p = 1
     answer = 0
     lands = [0]
@@ -11,14 +11,26 @@ def solution(n, costs):
     
     for t in table:
         print(t)
-        
-    while len(lands) != n:
-        
+    print()
+    #while len(lands) != n:
+    for i in range(n):
+        temp = [99 for i in range(n)]
         for land in lands:
-            if p in table[land] and table[land].index(p) not in lands:
-                lands.append(table[land].index(p))
-                answer += p
-        print(lands)
-        p += 1
-        break
+            m = min(table[land])
+            temp[table[land].index(m)] = min(m, temp[table[land].index(m)])#정복한 땅에서 갈 수 있는 최소값 잡아냄
+        #과거에 있던 값이 덮어씌워지는 오류가 있음. 최저값이 제대로 안잡힌다.
+        print(temp)
+        x = temp.index(min(temp))
+        print(land, x, m, lands)
+        if x not in lands:
+            lands.append(x)
+            table[land][x] = 99
+            table[x][land] = 99
+            answer += m
+        if len(lands) == n:
+            break
+
+    print(lands)
+
+
     return answer
