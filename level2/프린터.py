@@ -1,22 +1,13 @@
 def solution(priorities, location):
     answer = 0
-    maxnum = max(priorities)
-    idx = None
-    while maxnum > priorities[location]:
-            while maxnum == max(priorities):
-                answer += 1
-                idx = priorities.index(maxnum)
-                priorities[idx] = 0
-            maxnum = max(priorities)
-            
-    if idx != None:
-        if location < idx:
-            answer += priorities[idx:].count(maxnum)
-        else:
-            for i in range(idx):
-                priorities[i] = 0
+    candidate = [(j, i) for i, j in enumerate(priorities)]
     
-    while location != priorities.index(maxnum):
-        answer += 1
-        priorities[priorities.index(maxnum)] = 0
-    return answer + 1
+    while True:
+        m = max(candidate)[0]
+        c = candidate.pop(0)
+        if c[0] == m:
+            answer += 1
+            if c[1] == location:
+                return answer
+        else:
+            candidate.append(c)
