@@ -1,14 +1,18 @@
+from collections import deque
 def solution(n, computers):
-    lst= []
-    for computer in sorted(computers, reverse=True):   
-        temp = list(filter(lambda x: computer[x] == 1, range(len(computer))))
-        
-        for i in range(len(lst)):
-            if set(lst[i]) & set(temp):
-                lst[i] = list(set(lst[i]) | set(temp))
-                print(lst[i])
-                break
-        else:
-            lst.append(temp)
-
-    return len(lst)
+    lst= [i for i in range(n)]
+    visited = [False] * n
+    for i in range(n):
+        if visited[i] == False:
+            visited[i] = True
+            q = deque()
+            q.append(i)
+            while q:
+                node = q.popleft()
+                for j in range(n):
+                    if visited[j] == False and computers[node][j] == 1:
+                        lst[j] = lst[node]
+                        visited[j] = True
+                        q.append(j)
+    
+    return len(set(lst))
