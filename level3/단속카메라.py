@@ -1,20 +1,13 @@
 def solution(routes):
-    answer = 0
+    answer = 1
 
-    while len(routes) != 0:
-        for i in range(2):
-            temp = []
-            a = routes[0][0]
-            b = routes[0][1]
-            for route in routes:
-
-                if a <= route[0] <= b or route[0] <= a <= route[1] or \
-                    a <= route[1] <= b or route[0] <= b <= route[1]:
-                    a = route[0] if abs(a-b) > abs(route[0]-b) else a
-                    b = route[1] if abs(b-a) > abs(route[1]-a) else b
-                else:
-                    temp.append(route)
+    routes.sort(key = lambda x : x[1])
+    camera = routes.pop(0)[1]
+    for route in routes:
+        if route[0] <= camera <= route[1]:
+            continue
+        else:
+            camera = route[1]
             answer += 1
-            routes = temp
 
     return answer
