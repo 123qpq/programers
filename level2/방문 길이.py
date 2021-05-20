@@ -8,9 +8,7 @@ def solution(dirs):
         i = dic[d]
         dxx, dyy = x + dx[i], y + dy[i]
         if -5 <= dxx <= 5 and -5 <= dyy <= 5:
-            if (x, y, dxx, dyy) not in visited:
-                visited.add((x, y, dxx, dyy))
-                visited.add((dxx, dyy, x, y))
-                answer += 1
+            visited.add((x, y, dxx, dyy))
+            visited.add((dxx, dyy, x, y))
             x, y = dxx, dyy
-    return answer
+    return len(visited)//2
