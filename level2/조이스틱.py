@@ -1,20 +1,24 @@
 def solution(name):
     answer = 0
-    for i in name:
-        alpha = ord(i) - ord('A')
-        if alpha > 13:
-            answer += 26 - alpha
-        else:
-            answer += alpha
+    
+    check = [min(ord(i) - ord('A'), ord('Z') - ord(i) + 1) for i in name]
         
-    if name[1] == 'A':
-        answer += len(name) - 2
-        if name[2] == 'A':
-            answer -= 1
-    elif name[-1] == 'A':
-        answer += len(name) - 2
-        if name[-2] == 'A':
-            answer -= 1
-    else:
-        answer += len(name) - 1
-    return answer
+    idx = 0
+
+    while True:
+        answer += check[idx]
+        check[idx] = 0
+        
+        if sum(check) == 0:
+            return answer
+        
+        left, right = 1, 1
+        while check[idx - left] == 0:
+            left += 1
+            
+        while check[idx + right] == 0:
+            right += 1
+        
+        answer += left if left < right else right
+        idx += -left if left < right else right
+            
